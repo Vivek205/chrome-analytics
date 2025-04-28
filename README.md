@@ -3,7 +3,7 @@
 
 Hey folks,
 
-I'm excited to share a new project I'm working on — an **AI-powered Analytics Dashboard** specifically designed for **Chrome Extension developers**!
+I'm excited to share a new project that I'm working on — an **AI-powered Analytics Dashboard** specifically designed for **Chrome Extension developers**!
 
 If you have a Chrome extension under your name, this tool is built with you in mind. It's going to make tracking and analyzing your extension's performance easier and smarter.
 
