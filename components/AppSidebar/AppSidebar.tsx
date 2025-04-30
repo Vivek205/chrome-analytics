@@ -10,7 +10,6 @@ import Link from "next/link";
 import { menuItems } from "./constants";
 import { Separator } from "../ui/separator";
 
-
 export const AppSidebar = () => {
   return (
     <Sidebar>
@@ -23,7 +22,7 @@ export const AppSidebar = () => {
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <Link href="/">
+                <Link href={item.href}>
                   <item.icon /> {item.title}
                 </Link>
               </SidebarMenuButton>
