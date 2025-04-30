@@ -8,11 +8,16 @@ import {
 } from "../ui/sidebar";
 import Link from "next/link";
 import { menuItems } from "./constants";
+import { Separator } from "../ui/separator";
+
 
 export const AppSidebar = () => {
   return (
     <Sidebar>
-      <SidebarHeader>ChromeExt Analytics</SidebarHeader>
+      <SidebarHeader className="font-bold leading-9">
+        ChromeExt Analytics
+      </SidebarHeader>
+      <Separator />
       <SidebarContent>
         <SidebarMenu>
           {menuItems.map((item) => (
