@@ -22,4 +22,4 @@ const infoDataMock = [
   },
 ];
 
-export const getInfoDataMock = () => infoDataMock;
+export const getInfoDataMock = () => Promise.resolve(infoDataMock);
