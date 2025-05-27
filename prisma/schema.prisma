@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Extension {
+  id              String            @id
+  name            String            @db.VarChar(255)
+  url             String            @db.VarChar(1024)
+  created_at      DateTime          @default(now())
+  updated_at      DateTime
+  ExtensionMetric ExtensionMetric[]
+}
+
+model ExtensionMetric {
+  id            String    @id
+  extension_id  String
+  active_users  Int?
+  ratings_count Int?
+  ratings_value Float?
+  scraped_at    DateTime  @default(now())
+  Extension     Extension @relation(fields: [extension_id], references: [id], onDelete: Cascade)
+
+  @@unique([extension_id, scraped_at])
+  @@index([extension_id])
+  @@index([scraped_at])
+}
