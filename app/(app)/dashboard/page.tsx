@@ -1,15 +1,14 @@
-"use client";
 import { InfoCard } from "@/components/InfoCard/InfoCard";
 import { LineChart } from "@/components/LineChart/LineChart";
 import { getDownloadChartMock } from "@/mocks/downloadChartMock";
 import { getInfoDataMock } from "@/mocks/infoDataMock";
 import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
+import { stackServerApp } from "@/stack";
 import { DownloadCloudIcon } from "lucide-react";
-import { useUser } from "@stackframe/stack";
 
 export default async function Dashboard() {
-  const loggedIn = useUser({ or: "redirect" });
-  console.log(loggedIn);
+  await stackServerApp.getUser({ or: "redirect" });
+
   const infoData = await getInfoDataMock();
   const downloadChartData = await getDownloadChartMock();
   const ratingsChartData = await getRatingsChartMock();

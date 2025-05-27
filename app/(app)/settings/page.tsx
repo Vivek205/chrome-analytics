@@ -1,7 +1,7 @@
-"use client";
-import { useUser } from "@stackframe/stack";
+import { stackServerApp } from "@/stack";
 
-export default function Settings() {
-  useUser({ or: "redirect" });
+export default async function Settings() {
+  await stackServerApp.getUser({ or: "redirect" });
+
   return <div>Configure Settings</div>;
 }
