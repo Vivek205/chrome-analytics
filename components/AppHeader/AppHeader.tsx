@@ -9,7 +9,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { UserButton } from "@stackframe/stack";
 
 export const AppHeader = () => (
   <div className="w-full">
@@ -20,12 +20,7 @@ export const AppHeader = () => (
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            User
-            <Avatar>
-              <AvatarFallback>FL</AvatarFallback>
-            </Avatar>
-          </Button>
+          <UserButton />
         </DropdownMenuTrigger>
 
         <DropdownMenuContent className="mr-2 w-56">
