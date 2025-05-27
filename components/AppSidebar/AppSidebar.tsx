@@ -20,7 +20,7 @@ export const AppSidebar = () => {
       <SidebarContent>
         <SidebarMenu>
           {menuItems.map((item) => (
-            <SidebarMenuItem key={item.title}>
+            <SidebarMenuItem key={item.title} className="px-2 py-1">
               <SidebarMenuButton asChild>
                 <Link href={item.href}>
                   <item.icon /> {item.title}
