@@ -3,15 +3,23 @@ import { LineChart } from "@/components/LineChart/LineChart";
 import { getDownloadChartMock } from "@/mocks/downloadChartMock";
 import { getInfoDataMock } from "@/mocks/infoDataMock";
 import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
-import { stackServerApp } from "@/stack";
 import { DownloadCloudIcon } from "lucide-react";
+import { stackServerApp } from "@/stack";
+import { AddExtensionForm } from "./AddExtensionForm";
+import { getUserExtensions } from "@/services/user.service";
 
 export default async function Dashboard() {
-  await stackServerApp.getUser({ or: "redirect" });
+  const user = await stackServerApp.getUser({ or: "redirect" });
+  const userExtensions = await getUserExtensions(user.id);
+  console.log(userExtensions);
 
   const infoData = await getInfoDataMock();
   const downloadChartData = await getDownloadChartMock();
   const ratingsChartData = await getRatingsChartMock();
+
+  if(!userExtensions.length){
+    return <AddExtensionForm />
+  }
 
   return (
     <div>

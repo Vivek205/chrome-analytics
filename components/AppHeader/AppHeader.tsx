@@ -16,7 +16,6 @@ export const AppHeader = () => (
     <nav className="flex justify-between p-2">
       <div className="flex items-center">
         <SidebarTrigger />
-        <p>Analytics for: Extension Name</p>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

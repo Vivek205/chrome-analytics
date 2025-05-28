@@ -13,7 +13,7 @@ model Extension {
   name            String            @db.VarChar(255)
   url             String            @db.VarChar(1024)
   created_at      DateTime          @default(now())
-  updated_at      DateTime
+  updated_at      DateTime          @default(now())
   ExtensionMetric ExtensionMetric[]
   UserExtension   UserExtension[]
 }
@@ -45,7 +45,7 @@ model UserExtension {
   userId      String
   extensionId String
   created_at  DateTime  @default(now())
-  updated_at  DateTime
+  updated_at  DateTime  @default(now())
   Extension   Extension @relation(fields: [extensionId], references: [id])
   User        User      @relation(fields: [userId], references: [id])
 
