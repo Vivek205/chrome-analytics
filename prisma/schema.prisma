@@ -15,6 +15,7 @@ model Extension {
   created_at      DateTime          @default(now())
   updated_at      DateTime
   ExtensionMetric ExtensionMetric[]
+  UserExtension   UserExtension[]
 }
 
 model ExtensionMetric {
@@ -29,4 +30,25 @@ model ExtensionMetric {
   @@unique([extension_id, scraped_at])
   @@index([extension_id])
   @@index([scraped_at])
+}
+
+model User {
+  id            String          @id
+  name          String          @db.VarChar(255)
+  email         String          @db.VarChar(255)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime
+  UserExtension UserExtension[]
+}
+
+model UserExtension {
+  userId      String
+  extensionId String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime
+  Extension   Extension @relation(fields: [extensionId], references: [id])
+  User        User      @relation(fields: [userId], references: [id])
+
+  @@id([userId, extensionId])
+  @@index([userId])
 }
