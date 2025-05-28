@@ -1,4 +1,5 @@
 import { dbClient } from "@/database/client";
+import { User } from "@stackframe/stack";
 
 export const getUserExtensions = async (userId: string) => {
   const userExtensions = await dbClient.userExtension.findMany({
@@ -10,8 +11,35 @@ export const getUserExtensions = async (userId: string) => {
   return userExtensions;
 };
 
+
+export const addUser = async (user:User) => {
+  const userExists = await dbClient.user.findFirst({
+    where: {
+      id: user.id,
+    },
+  });
+
+  if(userExists){
+    return true
+  }
+
+  if (!user.primaryEmail) {
+    throw new Error("Invalid user email");
+  }
+
+  await dbClient.user.create({
+    data: {
+      id: user.id,
+      email: user.primaryEmail,
+      name: user.displayName ?? "",
+    },
+  });
+  
+}
+
 const CHROME_WEB_STORE_REGEX =
-  /^https:\/\/chrome\.google\.com\/webstore\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+$/;
+  /^https:\/\/chromewebstore\.google\.com\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9]+$/;
+
 const validateExtensionUrl = (url: string) => {
   const cleanUrl = url.split("?")[0];
 
