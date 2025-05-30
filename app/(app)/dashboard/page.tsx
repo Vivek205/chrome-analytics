@@ -5,8 +5,8 @@ import { getInfoDataMock } from "@/mocks/infoDataMock";
 import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
 import { DownloadCloudIcon } from "lucide-react";
 import { stackServerApp } from "@/stack";
-import { AddExtensionForm } from "./AddExtensionForm";
 import { getUserExtensions } from "@/services/user.service";
+import { AddExtensionForm } from "./AddExtensionForm";
 
 export default async function Dashboard() {
   const user = await stackServerApp.getUser({ or: "redirect" });

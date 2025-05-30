@@ -2,14 +2,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { addUserExtension } from "@/services/user.service";
+// import { addUserExtension } from "@/services/user.service";
 import { User } from "@stackframe/stack";
 
 export const AddExtensionForm = ({ user }: { user: User }) => {
   const addExtensionAction = async (formData: FormData) => {
     "use server";
     const extensionUrl = formData.get("extension-url");
-    console.log("formData", extensionUrl);
+    console.log("formData", extensionUrl, user);
     if (!extensionUrl || typeof extensionUrl !== "string") {
       return;
     }

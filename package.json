@@ -7,11 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "env": "dotenv -e .dev.vars",
     "db:generate": "prisma generate",
     "db:pull": "prisma db pull",
-    "db:update": "pnpm db:generate && pnpm db:pull"
+    "db:update": "rm -rf ./lib/generated/prisma && pnpm db:pull && pnpm db:generate",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.1.0",
+    "@prisma/adapter-neon": "^6.8.2",
+    "@prisma/adapter-pg": "^6.8.2",
     "@prisma/client": "6.8.2",
     "@radix-ui/react-avatar": "^1.1.7",
     "@radix-ui/react-dialog": "^1.1.11",
@@ -32,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.3.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -42,7 +50,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.19.4",
     "tw-animate-css": "^1.2.8",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.17.0"
   },
   "overrides": {
     "react-is": "^19.0.0-rc-69d4b800-20241021"

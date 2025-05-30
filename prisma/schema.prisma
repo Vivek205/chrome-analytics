@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -33,12 +33,12 @@ model ExtensionMetric {
 }
 
 model User {
-  id            String          @id
-  name          String          @db.VarChar(255)
-  email         String          @db.VarChar(255)
-  created_at    DateTime        @default(now())
-  updated_at    DateTime
-  UserExtension UserExtension[]
+  id         String          @id
+  name       String          @db.VarChar(255)
+  email      String          @db.VarChar(255)
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @default(now()) @updatedAt @map("updated_at")
+  extensions UserExtension[]
 }
 
 model UserExtension {

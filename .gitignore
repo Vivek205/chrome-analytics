@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# cloudflare env files
+.dev.vars
+*.vars
 
 # vercel
 .vercel
@@ -41,3 +44,5 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/generated/prisma
+.wrangler
+.open-next
