@@ -2,19 +2,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-// import { addUserExtension } from "@/services/user.service";
-import { User } from "@stackframe/stack";
 
-export const AddExtensionForm = ({ user }: { user: User }) => {
+export const AddExtensionForm = () => {
   const addExtensionAction = async (formData: FormData) => {
     "use server";
     const extensionUrl = formData.get("extension-url");
-    console.log("formData", extensionUrl, user);
+    console.log("formData", extensionUrl);
     if (!extensionUrl || typeof extensionUrl !== "string") {
       return;
     }
-    // TODO: Uncomment it after webhook for user creation is implemented
-    // await addUserExtension(user.id, extensionUrl);
+    // TODO: Implement extension addition logic
   };
   return (
     <div className="flex justify-center">

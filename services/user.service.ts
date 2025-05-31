@@ -1,4 +1,3 @@
-import { User } from "@stackframe/stack";
 import { getDbClient } from "@/database/client";
 
 export const getUserExtensions = async (userId: string) => {
@@ -12,11 +11,11 @@ export const getUserExtensions = async (userId: string) => {
   return userExtensions;
 };
 
-export const addUser = async (user: User) => {
+export const addUser = async (userId: string, email: string, name: string) => {
   const dbClient = getDbClient();
   const userExists = await dbClient.user.findFirst({
     where: {
-      id: user.id,
+      id: userId,
     },
   });
 
@@ -24,15 +23,15 @@ export const addUser = async (user: User) => {
     return true;
   }
 
-  if (!user.primaryEmail) {
+  if (!email) {
     throw new Error("Invalid user email");
   }
 
   await dbClient.user.create({
     data: {
-      id: user.id,
-      email: user.primaryEmail,
-      name: user.displayName ?? "",
+      id: userId,
+      email,
+      name,
     },
   });
 };
