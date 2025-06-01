@@ -8,102 +8,114 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Extension {
-  id              String            @id
-  name            String            @db.VarChar(255)
-  url             String            @db.VarChar(1024)
-  created_at      DateTime          @default(now())
-  updated_at      DateTime          @default(now())
-  ExtensionMetric ExtensionMetric[]
-  UserExtension   UserExtension[]
-}
-
-model ExtensionMetric {
-  id            String    @id
-  extension_id  String
-  active_users  Int?
-  ratings_count Int?
-  ratings_value Float?
-  scraped_at    DateTime  @default(now())
-  Extension     Extension @relation(fields: [extension_id], references: [id], onDelete: Cascade)
-
-  @@unique([extension_id, scraped_at])
-  @@index([extension_id])
-  @@index([scraped_at])
-}
+// Start of AuthJS User Schemas
 
 model User {
-  id            String          @id
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @default(now())
-  Account       Account[]
-  Authenticator Authenticator[]
-  Session       Session[]
-  extensions    UserExtension[]
-}
+    id            String          @id @default(uuid())
+    name          String?
+    email         String          @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    // Optional for WebAuthn support
+    Authenticator Authenticator[]
 
-model UserExtension {
-  userId      String
-  extensionId String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now())
-  Extension   Extension @relation(fields: [extensionId], references: [id])
-  User        User      @relation(fields: [userId], references: [id])
-
-  @@id([userId, extensionId])
-  @@index([userId])
+    createdAt  DateTime        @default(now())
+    updatedAt  DateTime        @updatedAt @default(now())
+    extensions UserExtension[]
 }
 
 model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @default(now())
-  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String?
+    access_token      String?
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String?
+    session_state     String?
 
-  @@id([provider, providerAccountId])
-}
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
 
-model Authenticator {
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
-  User                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([userId, credentialID])
+    @@id([provider, providerAccountId])
 }
 
 model Session {
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
-  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
 }
 
 model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+    identifier String
+    token      String
+    expires    DateTime
 
-  @@id([identifier, token])
+    @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+    credentialID         String  @unique
+    userId               String
+    providerAccountId    String
+    credentialPublicKey  String
+    counter              Int
+    credentialDeviceType String
+    credentialBackedUp   Boolean
+    transports           String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@id([userId, credentialID])
+}
+
+// End of AuthJS User Schemas
+
+model Extension {
+    id        String            @id @default(uuid())
+    name      String            @db.VarChar(255)
+    url       String            @db.VarChar(1024)
+    createdAt DateTime          @default(now()) @map("created_at")
+    updatedAt DateTime          @default(now()) @updatedAt @map("updated_at")
+    metrics   ExtensionMetric[] @relation("ExtensionToMetrics")
+    users     UserExtension[]
+}
+
+model UserExtension {
+    userId      String
+    extensionId String
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+
+    user      User      @relation(fields: [userId], references: [id])
+    extension Extension @relation(fields: [extensionId], references: [id])
+
+    @@id([userId, extensionId])
+    @@index([userId])
+}
+
+model ExtensionMetric {
+    id           String    @id @default(uuid())
+    extensionId  String    @map("extension_id")
+    activeUsers  Int?      @map("active_users")
+    ratingsCount Int?      @map("ratings_count")
+    ratingsValue Float?    @map("ratings_value")
+    scrapedAt    DateTime  @default(now()) @map("scraped_at")
+    extension    Extension @relation("ExtensionToMetrics", fields: [extensionId], references: [id], onDelete: Cascade)
+
+    @@unique([extensionId, scrapedAt])
+    @@index([extensionId])
+    @@index([scrapedAt])
 }
