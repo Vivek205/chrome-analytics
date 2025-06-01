@@ -33,12 +33,17 @@ model ExtensionMetric {
 }
 
 model User {
-  id         String          @id
-  name       String          @db.VarChar(255)
-  email      String          @db.VarChar(255)
-  createdAt  DateTime        @default(now()) @map("created_at")
-  updatedAt  DateTime        @default(now()) @updatedAt @map("updated_at")
-  extensions UserExtension[]
+  id            String          @id
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  Account       Account[]
+  Authenticator Authenticator[]
+  Session       Session[]
+  extensions    UserExtension[]
 }
 
 model UserExtension {
@@ -51,4 +56,54 @@ model UserExtension {
 
   @@id([userId, extensionId])
   @@index([userId])
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  User                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
 }
