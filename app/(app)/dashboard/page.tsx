@@ -15,9 +15,9 @@ export default async function Dashboard() {
   const downloadChartData = await getDownloadChartMock();
   const ratingsChartData = await getRatingsChartMock();
 
-  if (!userExtensions.length) {
-    return <AddExtensionForm />;
-  }
+    if (!userExtensions.length) {
+      return <AddExtensionForm />;
+    }
 
   return (
     <div>
