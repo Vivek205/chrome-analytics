@@ -8,7 +8,7 @@ I'm excited to share a new project that I'm working on — an **AI-powered Analy
 If you have a Chrome extension under your name, this tool is built with you in mind. It's going to make tracking and analyzing your extension's performance easier and smarter.
 
 I've already outlined the initial plan and scoped the core features.  
-**Interested in collaborating or brainstorming ideas?** Feel free to reach out — I'd love to connect!
+**Interested in collaborating or brainstorming ideas?** Feel free to reach out. I'd love to connect!
 
 Cheers,  
 **Vivek**  
