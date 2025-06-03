@@ -1,92 +1,92 @@
-import { getDbClient } from "@/database/client";
 
-export const getUserExtensions = async (userId: string) => {
-  const dbClient = getDbClient();
-  const userExtensions = await dbClient.userExtension.findMany({
-    where: {
-      userId,
-    },
-  });
 
-  return userExtensions;
-};
+// export const getUserExtensions = async (userId: string) => {
+//   const dbClient = getDbClient();
+//   const userExtensions = await dbClient.userExtension.findMany({
+//     where: {
+//       userId,
+//     },
+//   });
 
-export const addUser = async (userId: string, email: string, name: string) => {
-  const dbClient = getDbClient();
-  const userExists = await dbClient.user.findFirst({
-    where: {
-      id: userId,
-    },
-  });
+//   return userExtensions;
+// };
 
-  if (userExists) {
-    return true;
-  }
+// export const addUser = async (userId: string, email: string, name: string) => {
+//   const dbClient = getDbClient();
+//   const userExists = await dbClient.user.findFirst({
+//     where: {
+//       id: userId,
+//     },
+//   });
 
-  if (!email) {
-    throw new Error("Invalid user email");
-  }
+//   if (userExists) {
+//     return true;
+//   }
 
-  await dbClient.user.create({
-    data: {
-      id: userId,
-      email,
-      name,
-    },
-  });
-};
+//   if (!email) {
+//     throw new Error("Invalid user email");
+//   }
 
-const CHROME_WEB_STORE_REGEX =
-  /^https:\/\/chromewebstore\.google\.com\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9]+$/;
+//   await dbClient.user.create({
+//     data: {
+//       id: userId,
+//       email,
+//       name,
+//     },
+//   });
+// };
 
-const validateExtensionUrl = (url: string) => {
-  const cleanUrl = url.split("?")[0];
+// const CHROME_WEB_STORE_REGEX =
+//   /^https:\/\/chromewebstore\.google\.com\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9]+$/;
 
-  if (!CHROME_WEB_STORE_REGEX.test(cleanUrl)) {
-    return false;
-  }
+// const validateExtensionUrl = (url: string) => {
+//   const cleanUrl = url.split("?")[0];
 
-  const [extensionId, extensionName] = cleanUrl.split("/").slice(-2);
+//   if (!CHROME_WEB_STORE_REGEX.test(cleanUrl)) {
+//     return false;
+//   }
 
-  return {
-    extensionId,
-    extensionName,
-    cleanUrl,
-  };
-};
+//   const [extensionId, extensionName] = cleanUrl.split("/").slice(-2);
 
-export const addUserExtension = async (
-  userId: string,
-  extensionUrl: string
-) => {
-  const dbClient = getDbClient();
-  const validatedUrl = validateExtensionUrl(extensionUrl);
-  if (!validatedUrl) {
-    throw new Error("Invalid extension URL");
-  }
-  const { extensionId, extensionName, cleanUrl } = validatedUrl;
+//   return {
+//     extensionId,
+//     extensionName,
+//     cleanUrl,
+//   };
+// };
 
-  const extension = await dbClient.extension.findFirst({
-    where: {
-      id: extensionId,
-    },
-  });
+// export const addUserExtension = async (
+//   userId: string,
+//   extensionUrl: string
+// ) => {
+//   const dbClient = getDbClient();
+//   const validatedUrl = validateExtensionUrl(extensionUrl);
+//   if (!validatedUrl) {
+//     throw new Error("Invalid extension URL");
+//   }
+//   const { extensionId, extensionName, cleanUrl } = validatedUrl;
 
-  if (!extension) {
-    // TODO: Extension not found, create it
-    await dbClient.extension.create({
-      data: {
-        id: extensionId,
-        name: extensionName,
-        url: cleanUrl,
-      },
-    });
-  }
+//   const extension = await dbClient.extension.findFirst({
+//     where: {
+//       id: extensionId,
+//     },
+//   });
 
-  await dbClient.userExtension.create({
-    data: {
-      userId,
-      extensionId,
-    },
-  });
-};
+//   if (!extension) {
+//     // TODO: Extension not found, create it
+//     await dbClient.extension.create({
+//       data: {
+//         id: extensionId,
+//         name: extensionName,
+//         url: cleanUrl,
+//       },
+//     });
+//   }
+
+//   await dbClient.userExtension.create({
+//     data: {
+//       userId,
+//       extensionId,
+//     },
+//   });
+// };
