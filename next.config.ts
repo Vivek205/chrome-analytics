@@ -8,7 +8,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const nextConfig: NextConfig = {
   /* config options here */
-  serverExternalPackages: ["@prisma/client", "./prisma/client"],
+  serverExternalPackages: [
+    "@prisma/client",
+    "@prisma/adapter-neon",
+    "@neondatabase/serverless"],
   poweredByHeader: false,
 };
 

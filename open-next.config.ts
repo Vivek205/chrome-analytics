@@ -4,3 +4,5 @@ import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 export default defineCloudflareConfig({
 //   incrementalCache: r2IncrementalCache,
 });
+
+// TODO: Learn what is r2IncrementalCache

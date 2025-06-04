@@ -28,3 +28,10 @@ Additionally, there's a **chrome-analytics-scraper** that collects the data need
 The scraper is currently **a work in progress**, and you can check it out here: [chrome-analytics-scraper](https://github.com/Vivek205/chrome-analytics-scraper)
 
 ---
+
+# Cloudflare Deployment
+
+## Pages
+
+## Workers
+https://chrome-analytics.ichbinvivek.workers.dev/

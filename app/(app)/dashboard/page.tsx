@@ -4,20 +4,22 @@ import { getDownloadChartMock } from "@/mocks/downloadChartMock";
 import { getInfoDataMock } from "@/mocks/infoDataMock";
 import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
 import { DownloadCloudIcon } from "lucide-react";
-// import { getUserExtensions } from "@/services/user.service";
-// import { AddExtensionForm } from "./AddExtensionForm";
+import { getUserExtensions } from "@/services/user.service";
+import { AddExtensionForm } from "./AddExtensionForm";
+import { connection } from 'next/server'
 
 export default async function Dashboard() {
-  // const userExtensions = await getUserExtensions("user-id"); // TODO: Replace with actual user ID
-  // console.log(userExtensions);
+  await connection();
+  const userExtensions = await getUserExtensions("user-id"); // TODO: Replace with actual user ID
+  console.log(userExtensions);
 
   const infoData = await getInfoDataMock();
   const downloadChartData = await getDownloadChartMock();
   const ratingsChartData = await getRatingsChartMock();
 
-    // if (!userExtensions.length) {
-    //   return <AddExtensionForm />;
-    // }
+  if (!userExtensions.length) {
+    return <AddExtensionForm />;
+  }
 
   return (
     <div>
