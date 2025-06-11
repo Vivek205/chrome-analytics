@@ -1,30 +1,9 @@
-
-import { PrismaClient } from "@prisma/client";
-import { PrismaNeon } from '@prisma/adapter-neon';
-import { neonConfig } from '@neondatabase/serverless';
-import ws from 'ws';
-neonConfig.webSocketConstructor = ws;
-
-// Type definitions
-declare global {
-    var prisma: PrismaClient | undefined
-}
-
-const connectionString = `${process.env.DATABASE_URL}`;
-const adapter = new PrismaNeon({ connectionString, maxUses: 1 });
-const prisma = global.prisma || new PrismaClient({ adapter });
-if (process.env.NODE_ENV === 'development') global.prisma = prisma;
+import { sql } from "../database/client";
 
 export const getUserExtensions = async (userId: string) => {
-    // const dbClient = new PrismaClient()
-    const userExtensions = await prisma.userExtension.findMany({
-        where: {
-            userId,
-        },
-    });
-
-    return userExtensions;
-    // return []
+  const response =
+    await sql`SELECT * FROM "UserExtension" WHERE "userId" = ${userId}`;
+  return response;
 };
 
 // export const addUser = async (userId: string, email: string, name: string) => {
