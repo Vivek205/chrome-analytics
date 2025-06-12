@@ -30,7 +30,7 @@
     // },
   ],
    "vars": {
-    "AUTH_URL": "https://chrome-analytics.pages.dev",
+    "AUTH_URL": "https://chrome-analytics.ichbinvivek.workers.dev",
     "AUTH_TRUST_HOST": "true"
   } 
 }

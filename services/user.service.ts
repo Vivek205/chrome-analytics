@@ -2,7 +2,10 @@ import { sql } from "../database/client";
 
 export const getUserExtensions = async (userId: string) => {
   const response =
-    await sql`SELECT * FROM "UserExtension" WHERE "userId" = ${userId}`;
+    await sql`SELECT * FROM "user_extensions" WHERE "userId" = ${userId}`;
+
+  // const usersResponse = await sql`SELECT * FROM "users" WHERE "id" = ${userId}`;
+  // console.log("User Response:", usersResponse);
   return response;
 };
 
