@@ -1,0 +1,27 @@
+name = "chrome-analytics"
+main = ".open-next/worker.js"
+compatibility_date = "2024-12-30"
+
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "chrome-analytics"
+
+[vars]
+AUTH_URL = "https://chrome-analytics.ichbinvivek.workers.dev"
+AUTH_TRUST_HOST = "true"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+# If you decide to use R2 in the future, uncomment and configure like this:
+#
+# [[r2_buckets]]
+# binding = "NEXT_INC_CACHE_R2_BUCKET"
+# bucket_name = "your-r2-bucket-name"
