@@ -1,6 +1,8 @@
-import { sql } from "../database/client";
+import { getSQL } from "@/database/client";
+
 
 export const getUserExtensions = async (userId: string) => {
+  const sql = getSQL();
   const response =
     await sql`SELECT * FROM "user_extensions" WHERE "userId" = ${userId}`;
 
