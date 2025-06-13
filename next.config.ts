@@ -1,11 +1,24 @@
-import type { NextConfig } from 'next'
- 
+import type { NextConfig } from "next";
+
 const nextConfig: NextConfig = {
-   serverExternalPackages: [
+  serverExternalPackages: [
+    // TODO: Remove this when Next.js supports these packages natively
     "@prisma/client",
     "@prisma/adapter-neon",
-    "@neondatabase/serverless"],
+    "@neondatabase/serverless",
+  ],
+  // TODO: Find what this does
   poweredByHeader: false,
-}
- 
-export default nextConfig
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+        port: "",
+      },
+    ],
+  },
+};
+
+export default nextConfig;

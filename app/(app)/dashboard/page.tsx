@@ -4,7 +4,7 @@ import { getDownloadChartMock } from "@/mocks/downloadChartMock";
 import { getInfoDataMock } from "@/mocks/infoDataMock";
 import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
 import { DownloadCloudIcon } from "lucide-react";
-import { getUserExtensions } from "@/services/user.service";
+import { getUserExtensions } from "@/services/userExtensions.service";
 import { AddExtensionForm } from "./AddExtensionForm";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";

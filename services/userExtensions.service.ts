@@ -1,6 +1,11 @@
+import { fetchExtensionName } from "@/lib/fetchExtensionName";
 import { dbClient } from "../database/client";
+import * as cheerio from "cheerio";
 
 export const getUserExtensions = async (userId: string) => {
+  if (!userId) {
+    return [];
+  }
   const userExtensions = await dbClient.user_extensions.findMany({
     where: {
       userId,
@@ -43,20 +48,21 @@ export const getUserExtensions = async (userId: string) => {
 // };
 
 const CHROME_WEB_STORE_REGEX =
-  /^https:\/\/chromewebstore\.google\.com\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9]+$/;
+  /^https:\/\/chromewebstore\.google\.com\/detail\/[^/]+\/[a-zA-Z0-9]+$/;
 
-const validateExtensionUrl = (url: string) => {
+const validateExtensionUrl = async (url: string) => {
   const cleanUrl = url.split("?")[0];
-
+  console.log("Validating URL:", cleanUrl);
   if (!CHROME_WEB_STORE_REGEX.test(cleanUrl)) {
     return false;
   }
 
-  const [extensionId, extensionName] = cleanUrl.split("/").slice(-2);
+  const [, extensionId] = cleanUrl.split("/").slice(-2);
+  const extensionName = await fetchExtensionName(url);
 
   return {
     extensionId,
-    extensionName,
+    extensionName: extensionName ?? "",
     cleanUrl,
   };
 };
@@ -65,7 +71,7 @@ export const addUserExtension = async (
   userId: string,
   extensionUrl: string
 ) => {
-  const validatedUrl = validateExtensionUrl(extensionUrl);
+  const validatedUrl = await validateExtensionUrl(extensionUrl);
   console.log("Validated URL:", validatedUrl);
   if (!validatedUrl) {
     throw new Error("Invalid extension URL");
