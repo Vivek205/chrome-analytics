@@ -18,7 +18,7 @@ export default async function Dashboard() {
   const ratingsChartData = await getRatingsChartMock();
 
   if (!userExtensions.length) {
-    return <AddExtensionForm />;
+    return <AddExtensionForm userId={session?.user?.id} />;
   }
 
   return (

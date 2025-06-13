@@ -10,8 +10,20 @@ import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Button } from "../ui/button";
 import { signOut } from "@/auth";
+import { User } from "next-auth";
+import { Avatar, AvatarImage } from "../ui/avatar";
+import {
+  CircleUserIcon,
+  PersonStandingIcon,
+  UserCircle2Icon,
+  UserCircleIcon,
+  UserIcon,
+} from "lucide-react";
 
-export const AppHeader = () => {
+type AppHeaderProps = {
+  user?: User;
+};
+export const AppHeader = ({ user }: AppHeaderProps) => {
   const signoutAction = async () => {
     "use server";
     await signOut({ redirectTo: "/login" });
@@ -24,32 +36,26 @@ export const AppHeader = () => {
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5"
-              >
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
+            <Button variant="ghost" size="icon" className="cursor-pointer">
+              <Avatar>
+                {user && user.image ? (
+                  <AvatarImage src={user.image} />
+                ) : (
+                  <UserCircleIcon />
+                )}
+              </Avatar>
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent className="mr-2 w-56">
-            <DropdownMenuLabel>Full Name</DropdownMenuLabel>
+          <DropdownMenuContent className="mr-2 w-56" align="center">
+            <DropdownMenuLabel className="px-2">{user?.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <form action={signoutAction}>
-                <Button type="submit">Sign out</Button>
+                <button type="submit" className="cursor-pointer">
+                  Sign out
+                </button>
               </form>
             </DropdownMenuItem>
           </DropdownMenuContent>

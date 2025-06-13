@@ -2,16 +2,24 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { addUserExtension } from "@/services/user.service";
+import { redirect } from "next/navigation";
 
-export const AddExtensionForm = () => {
+type AddExtensionFormProps = {
+  userId?: string;
+};
+
+export const AddExtensionForm = ({ userId }: AddExtensionFormProps) => {
   const addExtensionAction = async (formData: FormData) => {
     "use server";
+
     const extensionUrl = formData.get("extension-url");
-    console.log("formData", extensionUrl);
-    if (!extensionUrl || typeof extensionUrl !== "string") {
+    if (!extensionUrl || typeof extensionUrl !== "string" || !userId) {
       return;
     }
-    // TODO: Implement extension addition logic
+    
+    await addUserExtension(userId, extensionUrl);
+    redirect("/dashboard");
   };
   return (
     <div className="flex justify-center">

@@ -5,7 +5,7 @@ import { dbClient } from "./database/client";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
-    async session({ session, user, token }) {
+    async session({ session, token }) {
       if (token && token.email) {
         const userDbData = await dbClient.users.findUnique({
           where: { email: token.email },

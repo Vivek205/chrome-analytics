@@ -42,57 +42,57 @@ export const getUserExtensions = async (userId: string) => {
 //   });
 // };
 
-// const CHROME_WEB_STORE_REGEX =
-//   /^https:\/\/chromewebstore\.google\.com\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9]+$/;
+const CHROME_WEB_STORE_REGEX =
+  /^https:\/\/chromewebstore\.google\.com\/detail\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9]+$/;
 
-// const validateExtensionUrl = (url: string) => {
-//   const cleanUrl = url.split("?")[0];
+const validateExtensionUrl = (url: string) => {
+  const cleanUrl = url.split("?")[0];
 
-//   if (!CHROME_WEB_STORE_REGEX.test(cleanUrl)) {
-//     return false;
-//   }
+  if (!CHROME_WEB_STORE_REGEX.test(cleanUrl)) {
+    return false;
+  }
 
-//   const [extensionId, extensionName] = cleanUrl.split("/").slice(-2);
+  const [extensionId, extensionName] = cleanUrl.split("/").slice(-2);
 
-//   return {
-//     extensionId,
-//     extensionName,
-//     cleanUrl,
-//   };
-// };
+  return {
+    extensionId,
+    extensionName,
+    cleanUrl,
+  };
+};
 
-// export const addUserExtension = async (
-//   userId: string,
-//   extensionUrl: string
-// ) => {
-//   const dbClient = getDbClient();
-//   const validatedUrl = validateExtensionUrl(extensionUrl);
-//   if (!validatedUrl) {
-//     throw new Error("Invalid extension URL");
-//   }
-//   const { extensionId, extensionName, cleanUrl } = validatedUrl;
+export const addUserExtension = async (
+  userId: string,
+  extensionUrl: string
+) => {
+  const validatedUrl = validateExtensionUrl(extensionUrl);
+  console.log("Validated URL:", validatedUrl);
+  if (!validatedUrl) {
+    throw new Error("Invalid extension URL");
+  }
+  const { extensionId, extensionName, cleanUrl } = validatedUrl;
 
-//   const extension = await dbClient.extension.findFirst({
-//     where: {
-//       id: extensionId,
-//     },
-//   });
+  const extension = await dbClient.extensions.findFirst({
+    where: {
+      id: extensionId,
+    },
+  });
 
-//   if (!extension) {
-//     // TODO: Extension not found, create it
-//     await dbClient.extension.create({
-//       data: {
-//         id: extensionId,
-//         name: extensionName,
-//         url: cleanUrl,
-//       },
-//     });
-//   }
+  if (!extension) {
+    // TODO: Extension not found, create it
+    await dbClient.extensions.create({
+      data: {
+        id: extensionId,
+        name: extensionName,
+        url: cleanUrl,
+      },
+    });
+  }
 
-//   await dbClient.userExtension.create({
-//     data: {
-//       userId,
-//       extensionId,
-//     },
-//   });
-// };
+  await dbClient.user_extensions.create({
+    data: {
+      userId,
+      extensionId,
+    },
+  });
+};
