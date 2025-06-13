@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
   const session = await auth();
-  console.log("Session:", session);
   const { pathname } = req.nextUrl;
   if (!session && !pathname.startsWith("/login")) {
     // TODO: Add RedirectBackTo functionality to redirect back to the original page after login
