@@ -8,15 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "next:info": "next info"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
-    "@opennextjs/cloudflare": "^1.1.0",
     "@prisma/adapter-neon": "^6.8.2",
     "@prisma/adapter-pg": "^6.9.0",
     "@prisma/client": "6.8.2",
