@@ -1,124 +1,97 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["driverAdapters"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("NEXT_PUBLIC_DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("NEXT_PUBLIC_DATABASE_URL")
+  directUrl = env("NEXT_PUBLIC_DIRECT_URL")
 }
 
-// Start of AuthJS User Schemas
+model accounts {
+  userId            String   @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String
+  scope             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  access_token      String?
+  id_token          String?
+  refresh_token     String?
+  session_state     String?
+  token_type        String?
+  expires_at        Int?
+  id                String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  users             users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-model User {
-    id            String          @id @default(uuid())
-    name          String?
-    email         String          @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    // Optional for WebAuthn support
-    Authenticator Authenticator[]
-
-    createdAt  DateTime        @default(now())
-    updatedAt  DateTime        @default(now()) @updatedAt
-    extensions UserExtension[]
+  @@unique([provider, providerAccountId])
 }
 
-model Account {
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String?
-    access_token      String?
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String?
-    session_state     String?
+model extension_metrics {
+  id           String     @id
+  extensionId  String
+  activeUsers  Int?
+  ratingsCount Int?
+  ratingsValue Float?
+  scrapedAt    DateTime   @default(now())
+  extensions   extensions @relation(fields: [extensionId], references: [id], onDelete: Cascade)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
-
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@id([provider, providerAccountId])
+  @@unique([extensionId, scrapedAt])
+  @@index([extensionId])
+  @@index([scrapedAt])
 }
 
-model Session {
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+model extensions {
+  id                String              @id
+  name              String              @db.VarChar(255)
+  url               String              @db.VarChar(1024)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now())
+  extension_metrics extension_metrics[]
+  user_extensions   user_extensions[]
 }
 
-model VerificationToken {
-    identifier String
-    token      String
-    expires    DateTime
-
-    @@id([identifier, token])
+model sessions {
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  users        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Optional for WebAuthn support
-model Authenticator {
-    credentialID         String  @unique
-    userId               String
-    providerAccountId    String
-    credentialPublicKey  String
-    counter              Int
-    credentialDeviceType String
-    credentialBackedUp   Boolean
-    transports           String?
+model user_extensions {
+  userId      String     @db.Uuid
+  extensionId String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now())
+  extensions  extensions @relation(fields: [extensionId], references: [id])
+  users       users      @relation(fields: [userId], references: [id])
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@id([userId, credentialID])
+  @@id([userId, extensionId])
+  @@index([userId])
 }
 
-// End of AuthJS User Schemas
-
-model Extension {
-    id        String            @id @default(uuid())
-    name      String            @db.VarChar(255)
-    url       String            @db.VarChar(1024)
-    createdAt DateTime          @default(now()) @map("created_at")
-    updatedAt DateTime          @default(now()) @updatedAt @map("updated_at")
-    metrics   ExtensionMetric[] @relation("ExtensionToMetrics")
-    users     UserExtension[]
+model users {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now())
+  accounts        accounts[]
+  sessions        sessions[]
+  user_extensions user_extensions[]
 }
 
-model UserExtension {
-    userId      String
-    extensionId String
-    createdAt   DateTime @default(now()) @map("created_at")
-    updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+model verification_tokens {
+  identifier String
+  token      String
+  expires    DateTime
 
-    user      User      @relation(fields: [userId], references: [id])
-    extension Extension @relation(fields: [extensionId], references: [id])
-
-    @@id([userId, extensionId])
-    @@index([userId])
-}
-
-model ExtensionMetric {
-    id           String    @id @default(uuid())
-    extensionId  String    @map("extension_id")
-    activeUsers  Int?      @map("active_users")
-    ratingsCount Int?      @map("ratings_count")
-    ratingsValue Float?    @map("ratings_value")
-    scrapedAt    DateTime  @default(now()) @map("scraped_at")
-    extension    Extension @relation("ExtensionToMetrics", fields: [extensionId], references: [id], onDelete: Cascade)
-
-    @@unique([extensionId, scrapedAt])
-    @@index([extensionId])
-    @@index([scrapedAt])
+  @@unique([identifier, token])
 }

@@ -1,9 +1,20 @@
-import { sql } from "../database/client";
+import { dbClient } from "../database/client";
 
 export const getUserExtensions = async (userId: string) => {
-  const response =
-    await sql`SELECT * FROM "user_extensions" WHERE "userId" = ${userId}`;
-  return response;
+  const userExtensions = await dbClient.user_extensions.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      extensions: true,
+    },
+  });
+
+  return userExtensions.map((userExtension) => ({
+    id: userExtension.extensions.id,
+    name: userExtension.extensions.name,
+    url: userExtension.extensions.url,
+  }));
 };
 
 // export const addUser = async (userId: string, email: string, name: string) => {
