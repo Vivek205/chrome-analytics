@@ -6,11 +6,14 @@ import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
 import { DownloadCloudIcon } from "lucide-react";
 import { getUserExtensions } from "@/services/user.service";
 import { AddExtensionForm } from "./AddExtensionForm";
-import { connection } from 'next/server'
+import { connection } from "next/server";
 
 export default async function Dashboard() {
   await connection();
-  const userExtensions = await getUserExtensions("1f4d3c2a-7b29-4e17-b2f9-9e8a44dfe2cc"); // TODO: Replace with actual user ID
+  // TODO: Replace with actual user ID
+  const userExtensions = await getUserExtensions(
+    "9d29e522-8b0d-4a9a-8392-2cd33fc345d8"
+  );
   console.log(userExtensions);
 
   const infoData = await getInfoDataMock();
