@@ -19,6 +19,7 @@ import {
   UserCircleIcon,
   UserIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 type AppHeaderProps = {
   user?: User;
@@ -50,7 +51,9 @@ export const AppHeader = ({ user }: AppHeaderProps) => {
           <DropdownMenuContent className="mr-2 w-56" align="center">
             <DropdownMenuLabel className="px-2">{user?.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/settings" className="w-full">Settings</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <form action={signoutAction}>
                 <button type="submit" className="cursor-pointer">
