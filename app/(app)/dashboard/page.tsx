@@ -6,13 +6,12 @@ import { getRatingsChartMock } from "@/mocks/ratingsChartMock";
 import { DownloadCloudIcon } from "lucide-react";
 import { getUserExtensions } from "@/services/user.service";
 import { AddExtensionForm } from "./AddExtensionForm";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
-
-  const userExtensions = await getUserExtensions(
-    "9d29e522-8b0d-4a9a-8392-2cd33fc345d8"
-  );
-  console.log(userExtensions);
+  const session = await auth();
+  const userExtensions = await getUserExtensions(session?.user?.id || "");
 
   const infoData = await getInfoDataMock();
   const downloadChartData = await getDownloadChartMock();
