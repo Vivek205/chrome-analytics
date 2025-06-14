@@ -5,8 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useTransition } from "react";
 import { addExtensionAction } from "./actions";
 
-type AddExtensionFormProps = {};
-export const AddExtensionForm = ({}: AddExtensionFormProps) => {
+export const AddExtensionForm = () => {
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
