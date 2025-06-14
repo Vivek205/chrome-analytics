@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
   try {
-    const session = await auth();
+    // const session = await auth();
     // const { pathname, origin } = req.nextUrl;
 
     // if (!session && !pathname.startsWith("/login")) {
@@ -19,11 +19,11 @@ export const middleware = async (req: NextRequest) => {
     //   homeUrl.search = ""; // Clear any search params
     //   return NextResponse.redirect(homeUrl);
     // }
-    return new NextResponse(`Session fetched successfully: ${JSON.stringify(session)}`, {
+    return new NextResponse(`Middleware ran successfully:`, {
       status: 200,
       headers: { "Content-Type": "text/plain" },
     });
-    return NextResponse.next();
+    // return NextResponse.next();
   } catch (error: any) {
     console.error("Middleware error:", error);
     return new NextResponse(`Middleware error: ${error.message}`, {
