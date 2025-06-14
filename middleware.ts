@@ -6,14 +6,17 @@ export const middleware = async (req: NextRequest) => {
   const { pathname, origin } = req.nextUrl;
 
   if (!session && !pathname.startsWith("/login")) {
-    const loginUrl = new URL("/login", origin);
     // TODO: Add RedirectBackTo functionality to redirect back to the original page after login
-    return NextResponse.redirect(loginUrl);
+    const url = req.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
   }
 
   if (session && pathname.startsWith("/login")) {
-    const requestUrl = new URL("/", origin);
-    return NextResponse.redirect(requestUrl);
+    const homeUrl = req.nextUrl.clone();
+    homeUrl.pathname = "/";
+    homeUrl.search = ""; // Clear any search params
+    return NextResponse.redirect(homeUrl);
   }
 
   return NextResponse.next();
