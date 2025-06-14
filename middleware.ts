@@ -15,6 +15,8 @@ export const middleware = async (req: NextRequest) => {
     const requestUrl = new URL("/", origin);
     return NextResponse.redirect(requestUrl);
   }
+
+  return NextResponse.next();
 };
 
 export const config = {
