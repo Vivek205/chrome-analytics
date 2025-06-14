@@ -2,14 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { addExtensionAction } from "./actions";
 
 type AddExtensionFormProps = {};
 export const AddExtensionForm = ({}: AddExtensionFormProps) => {
   const [isPending, startTransition] = useTransition();
-
-  console.log("isPending", isPending);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

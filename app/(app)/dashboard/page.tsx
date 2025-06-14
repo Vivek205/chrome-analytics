@@ -7,7 +7,6 @@ import { DownloadCloudIcon } from "lucide-react";
 import { getUserExtensions } from "@/services/userExtensions.service";
 import { AddExtensionForm } from "./AddExtensionForm";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   const session = await auth();

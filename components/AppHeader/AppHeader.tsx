@@ -12,13 +12,7 @@ import { Button } from "../ui/button";
 import { signOut } from "@/auth";
 import { User } from "next-auth";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import {
-  CircleUserIcon,
-  PersonStandingIcon,
-  UserCircle2Icon,
-  UserCircleIcon,
-  UserIcon,
-} from "lucide-react";
+import { UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 
 type AppHeaderProps = {
@@ -52,7 +46,9 @@ export const AppHeader = ({ user }: AppHeaderProps) => {
             <DropdownMenuLabel className="px-2">{user?.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href="/settings" className="w-full">Settings</Link>
+              <Link href="/settings" className="w-full">
+                Settings
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <form action={signoutAction}>
