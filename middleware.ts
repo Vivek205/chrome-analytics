@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
   try {
-    // const session = await auth();
-    const { pathname, origin } = req.nextUrl;
+    const session = await auth();
+    // const { pathname, origin } = req.nextUrl;
 
     // if (!session && !pathname.startsWith("/login")) {
     //   // TODO: Add RedirectBackTo functionality to redirect back to the original page after login
@@ -19,7 +19,10 @@ export const middleware = async (req: NextRequest) => {
     //   homeUrl.search = ""; // Clear any search params
     //   return NextResponse.redirect(homeUrl);
     // }
-
+    return new NextResponse(`Session fetched successfully: ${JSON.stringify(session)}`, {
+      status: 200,
+      headers: { "Content-Type": "text/plain" },
+    });
     return NextResponse.next();
   } catch (error: any) {
     console.error("Middleware error:", error);
