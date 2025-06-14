@@ -39,7 +39,7 @@ import { auth } from "./auth";
 export default auth((req) => {
   // req.auth
   return new NextResponse(
-    `Authenticated request: ${JSON.stringify(req.auth)}`,
+    `Authenticated request:- ${JSON.stringify(req.auth)}`,
     {
       status: 200,
       headers: { "Content-Type": "text/plain" },
