@@ -22,6 +22,23 @@ export const getUserExtensions = async (userId: string) => {
   }));
 };
 
+export const checkIfUserHasAddedExtension = async (
+  userId: string,
+  extensionId: string
+) => {
+  if (!userId || !extensionId) {
+    return false;
+  }
+  const userExtension = await dbClient.user_extensions.findFirst({
+    where: {
+      userId,
+      extensionId,
+    },
+  });
+
+  return !!userExtension;
+};
+
 // export const addUser = async (userId: string, email: string, name: string) => {
 //   const dbClient = getDbClient();
 //   const userExists = await dbClient.user.findFirst({

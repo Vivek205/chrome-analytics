@@ -7,6 +7,7 @@ import { DownloadCloudIcon } from "lucide-react";
 import { getUserExtensions } from "@/services/userExtensions.service";
 import { AddExtensionForm } from "./AddExtensionForm";
 import { auth } from "@/auth";
+import { ExtensionSelect } from "./ExtensionSelect";
 
 export default async function Dashboard() {
   const session = await auth();
@@ -20,6 +21,14 @@ export default async function Dashboard() {
     return <AddExtensionForm userId={session?.user?.id} />;
   }
 
+  return (
+    <div>
+      <ExtensionSelect userExtensions={userExtensions} />
+    </div>
+  );
+
+  // TODO: Don't delete below code, it's for the dashboard page
+  // This has the implementation of the dashboard page with charts and info cards.
   return (
     <div>
       <div className="flex gap-2 flex-wrap">

@@ -1,11 +1,11 @@
-import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
+import { DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Button } from "../ui/button";
