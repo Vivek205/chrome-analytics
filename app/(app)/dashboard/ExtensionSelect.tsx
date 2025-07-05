@@ -12,13 +12,17 @@ import { redirect } from "next/navigation";
 
 type ExtensionSelectProps = {
   userExtensions: { id: string; name: string }[];
+  extensionId?: string;
 };
-export const ExtensionSelect = ({ userExtensions }: ExtensionSelectProps) => {
+export const ExtensionSelect = ({
+  userExtensions,
+  extensionId,
+}: ExtensionSelectProps) => {
   const handleSelectChange = (extensionId: string) => {
     redirect(`/dashboard/${extensionId}`);
   };
   return (
-    <Select onValueChange={handleSelectChange}>
+    <Select onValueChange={handleSelectChange} defaultValue={extensionId}>
       <SelectTrigger className="cursor-pointer">
         <SelectValue placeholder="Select Extension" />
       </SelectTrigger>
@@ -26,7 +30,11 @@ export const ExtensionSelect = ({ userExtensions }: ExtensionSelectProps) => {
         <SelectGroup>
           <SelectLabel>Extensions</SelectLabel>
           {userExtensions.map((extension) => (
-            <SelectItem key={extension.id} value={extension.id} className="cursor-pointer">
+            <SelectItem
+              key={extension.id}
+              value={extension.id}
+              className="cursor-pointer"
+            >
               {extension.name}
             </SelectItem>
           ))}

@@ -5,8 +5,13 @@ import { LineChartData } from "@/components/LineChart/types";
 import { formatDateDDMM } from "@/lib/date";
 import { getExtensionMetrics } from "@/services/extensionMetrics.service";
 import { getExtensionDetails } from "@/services/extensions.service";
-import { checkIfUserHasAddedExtension } from "@/services/userExtensions.service";
-import { StarIcon, Users } from "lucide-react";
+import {
+  checkIfUserHasAddedExtension,
+  getUserExtensions,
+} from "@/services/userExtensions.service";
+import { SquareArrowOutUpRight, StarIcon, Users } from "lucide-react";
+import { ExtensionSelect } from "../ExtensionSelect";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type ExtensionPageProps = {
   params: Promise<{ extensionId: string }>;
@@ -17,6 +22,7 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
   if (!session?.user?.id) {
     return <div>Please log in to view extension details.</div>;
   }
+  const userExtensions = await getUserExtensions(session.user.id);
   const hasUserAddedExtension = await checkIfUserHasAddedExtension(
     session.user.id,
     extensionId
@@ -50,10 +56,46 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
   // TODO: The date is not displayed correctly in the chart, fix it later
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold pb-2">
-        Extension: {extensionDetails?.name}
-      </h2>
+    <div className="flex flex-col gap-y-2">
+      <div className="flex gap-2 items-center">
+        <p className="font-bold">Extension: </p>
+        <ExtensionSelect
+          userExtensions={userExtensions}
+          extensionId={extensionId}
+        />
+      </div>
+      <div className="flex">
+        <Card>
+          <CardHeader>
+            <CardTitle>Current Info</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-2">
+              <div className="font-bold">
+                <p>Users</p>
+                <p>Rating</p>
+                <p>Version</p>
+                <p>Url</p>
+              </div>
+              <div>
+                <p>{latestMetrics?.activeUsers}</p>
+                <p>{latestMetrics?.ratingsValue} / 5</p>
+                <p>1.30.2</p>
+                <p>
+                  <a
+                    href={extensionDetails?.url}
+                    target="_blank"
+                    className="cursor-pointer underline text-blue-600 w-32 truncate inline-block align-bottom"
+                  >
+                    <span>{extensionDetails?.url}</span>
+                  </a>
+                  <SquareArrowOutUpRight size={14} className="inline ml-2" />
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 flex-wrap">
           <InfoCard
