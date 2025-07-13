@@ -2,10 +2,18 @@
 "use server";
 
 import { addUserExtension } from "@/services/userExtensions.service";
-import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
-export async function addExtensionAction(formData: FormData) {
+export type AddExtensionActionState = {
+  success: boolean;
+  id?: string;
+  error?: string;
+};
+
+export async function addExtensionAction(
+  prevState: AddExtensionActionState,
+  formData: FormData
+): Promise<AddExtensionActionState> {
   try {
     const session = await auth();
     const extensionUrl = formData.get("extension-url");
@@ -16,13 +24,16 @@ export async function addExtensionAction(formData: FormData) {
       !session?.user?.id
     ) {
       console.error("Invalid data");
-      return;
+      return { success: false, error: "Invalid data" };
     }
 
-    await addUserExtension(session.user.id, extensionUrl);
+    const { id } = await addUserExtension(session.user.id, extensionUrl);
+    return { success: true, id };
   } catch (error) {
-    console.error("Error adding extension:", error);
+    if (error instanceof Error) {
+      console.error("Error adding extension:", error);
+      return { success: false, error: error.message };
+    }
+    return { success: false, error: "An unknown error occurred" };
   }
-
-  redirect("/extensions");
 }

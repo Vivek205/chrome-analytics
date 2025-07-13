@@ -112,10 +112,21 @@ export const addUserExtension = async (
     });
   }
 
+  const userExtensionExists = await checkIfUserHasAddedExtension(
+    userId,
+    extensionId
+  );
+
+  if (userExtensionExists) {
+    throw new Error("Extension already added");
+  }
+
   await dbClient.user_extensions.create({
     data: {
       userId,
       extensionId,
     },
   });
+
+  return { id: extensionId };
 };

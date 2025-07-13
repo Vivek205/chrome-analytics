@@ -1,16 +1,12 @@
 import { auth } from "@/auth";
-import { InfoCard } from "@/components/InfoCard/InfoCard";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LineChart } from "@/components/LineChart/LineChart";
 import { LineChartData } from "@/components/LineChart/types";
 import { formatDateDDMM } from "@/lib/date";
 import { getExtensionMetrics } from "@/services/extensionMetrics.service";
 import { getExtensionDetails } from "@/services/extensions.service";
-import {
-  checkIfUserHasAddedExtension,
-  getUserExtensions,
-} from "@/services/userExtensions.service";
-import { SquareArrowOutUpRight, StarIcon, Users } from "lucide-react";
-import { ExtensionSelect } from "../ExtensionSelect";
+import { checkIfUserHasAddedExtension, getUserExtensions } from "@/services/userExtensions.service";
+import { SquareArrowOutUpRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type ExtensionPageProps = {
@@ -58,14 +54,15 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex gap-2 items-center">
-        <p className="font-bold">Extension: </p>
-        <ExtensionSelect
-          userExtensions={userExtensions}
-          extensionId={extensionId}
+        <Breadcrumbs
+          items={[
+            { label: "Extensions", href: "/extensions" },
+            { label: extensionDetails?.name || "Extension", isCurrent: true },
+          ]}
         />
       </div>
       <div className="flex">
-        <Card>
+        <Card className="md:w-auto min-w-2xs">
           <CardHeader>
             <CardTitle>Current Info</CardTitle>
           </CardHeader>
@@ -96,40 +93,24 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
           </CardContent>
         </Card>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2 flex-wrap">
-          <InfoCard
-            title={"Active Users"}
-            value={`${latestMetrics?.activeUsers?.toString() || "0"} users`}
-            icon={Users}
-          />
-          <InfoCard
-            title={"Ratings"}
-            value={`${latestMetrics?.ratingsValue?.toString() || "0"}/5 (${
-              latestMetrics?.ratingsCount
-            } ratings)`}
-            icon={StarIcon}
-          />
-        </div>
 
-        <div className="flex flex-wrap gap-2">
-          <LineChart
-            title="Ratings"
-            description="Monthly Ratings Analysis"
-            data={ratingsChartData}
-            chartConfig={{
-              desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
-            }}
-          />
-          <LineChart
-            title="Active Users"
-            description="Analysis of Active Users Over Time"
-            data={activeUsersChartData}
-            chartConfig={{
-              desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
-            }}
-          />
-        </div>
+      <div className="flex flex-wrap gap-2">
+        <LineChart
+          title="Ratings"
+          description="Monthly Ratings Analysis"
+          data={ratingsChartData}
+          chartConfig={{
+            desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
+          }}
+        />
+        <LineChart
+          title="Active Users"
+          description="Analysis of Active Users Over Time"
+          data={activeUsersChartData}
+          chartConfig={{
+            desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
+          }}
+        />
       </div>
     </div>
   );
