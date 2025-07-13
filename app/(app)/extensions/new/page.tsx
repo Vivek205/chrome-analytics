@@ -13,7 +13,7 @@ export default function AddExtensionPage() {
 
       <div className="space-y-4">
         <p className="text-muted-foreground text-sm">
-          Paste the Chrome Web Store URL of the extension you'd like to monitor
+          Paste the Chrome Web Store URL of the extension you&apos;d like to monitor
           for updates and details.
         </p>
 

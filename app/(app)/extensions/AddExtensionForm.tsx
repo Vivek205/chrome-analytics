@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { addExtensionAction, AddExtensionActionState } from "./actions";
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ExtensionToast } from "@/components/ExtensionToast";
 
 const initialState: AddExtensionActionState = {
   success: false,

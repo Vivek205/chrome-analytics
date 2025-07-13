@@ -5,7 +5,7 @@ import { LineChartData } from "@/components/LineChart/types";
 import { formatDateDDMM } from "@/lib/date";
 import { getExtensionMetrics } from "@/services/extensionMetrics.service";
 import { getExtensionDetails } from "@/services/extensions.service";
-import { checkIfUserHasAddedExtension, getUserExtensions } from "@/services/userExtensions.service";
+import { checkIfUserHasAddedExtension } from "@/services/userExtensions.service";
 import { SquareArrowOutUpRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -18,7 +18,6 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
   if (!session?.user?.id) {
     return <div>Please log in to view extension details.</div>;
   }
-  const userExtensions = await getUserExtensions(session.user.id);
   const hasUserAddedExtension = await checkIfUserHasAddedExtension(
     session.user.id,
     extensionId
