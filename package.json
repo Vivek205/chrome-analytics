@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --port 8787",
     "build": "next build",
     "build:ci": "pnpm db:generate && next build",
     "start": "next start",

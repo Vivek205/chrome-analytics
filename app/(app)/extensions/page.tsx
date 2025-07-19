@@ -1,20 +1,12 @@
 import { auth } from "@/auth";
+import { ExtensionCard } from "@/components/ExtensionCard";
 import { ExtensionToast } from "@/components/ExtensionToast";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { fetchOgImage } from "@/lib/fetchOgImage";
 import { getExtensionDetails } from "@/services/extensions.service";
 import { getUserExtensions } from "@/services/userExtensions.service";
-import { SquareArrowOutUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { removeUserExtensionAction } from "./actions";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -72,36 +64,10 @@ export default async function Extensions(props: {
         <ul className="flex gap-4 flex-wrap">
           {extensionsWithImages.map((extension) => (
             <Link href={`/extensions/${extension.id}`} key={extension.id}>
-              <Card role="listitem" className="w-64">
-                <CardHeader className="h-8 ">
-                  <CardTitle>{extension.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Image
-                    src={extension.ogImage || ""}
-                    alt="OG"
-                    width={250}
-                    height={250}
-                    objectFit="cover"
-                  />
-                </CardContent>
-                <CardFooter>
-                  <CardAction className="w-full flex justify-between">
-                    <Button variant="destructive" className="cursor-pointer">
-                      Remove
-                    </Button>
-                    <Link
-                      className={buttonVariants()}
-                      href={extension.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open
-                      <SquareArrowOutUpRight />
-                    </Link>
-                  </CardAction>
-                </CardFooter>
-              </Card>
+              <ExtensionCard
+                extension={extension}
+                removeUserExtensionAction={removeUserExtensionAction}
+              />
             </Link>
           ))}
         </ul>

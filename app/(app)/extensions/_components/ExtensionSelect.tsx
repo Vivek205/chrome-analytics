@@ -19,7 +19,7 @@ export const ExtensionSelect = ({
   extensionId,
 }: ExtensionSelectProps) => {
   const handleSelectChange = (extensionId: string) => {
-    redirect(`/dashboard/${extensionId}`);
+    redirect(`/extensions/${extensionId}`);
   };
   return (
     <Select onValueChange={handleSelectChange} defaultValue={extensionId}>

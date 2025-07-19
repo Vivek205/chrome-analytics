@@ -1,6 +1,5 @@
 import { fetchExtensionName } from "@/lib/fetchExtensionName";
 import { dbClient } from "../database/client";
-import * as cheerio from "cheerio";
 
 export const getUserExtensions = async (userId: string) => {
   if (!userId) {
@@ -129,4 +128,20 @@ export const addUserExtension = async (
   });
 
   return { id: extensionId };
+};
+
+export const removeUserExtension = async (
+  userId: string,
+  extensionId: string
+) => {
+  // Remove the user_extension entry from the database
+  await dbClient.user_extensions.delete({
+    where: {
+      userId_extensionId: {
+        userId,
+        extensionId,
+      },
+    },
+  });
+  return { success: true };
 };

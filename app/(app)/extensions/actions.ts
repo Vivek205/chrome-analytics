@@ -37,3 +37,23 @@ export async function addExtensionAction(
     return { success: false, error: "An unknown error occurred" };
   }
 }
+
+export type RemoveUserExtensionActionState = {
+  success: boolean;
+  error?: string;
+};
+
+export type RemoveUserExtensionAction = (
+  prevState: RemoveUserExtensionActionState,
+  formData: FormData
+) => Promise<RemoveUserExtensionActionState>;
+
+export async function removeUserExtensionAction(
+  prevState: RemoveUserExtensionActionState,
+  // TODO: pass extensionId instead of formData
+  formData: FormData
+): Promise<RemoveUserExtensionActionState> {
+  console.log("removeUserExtensionAction");
+  const id = formData.get("id");
+  return { success: true }; 
+}

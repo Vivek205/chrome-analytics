@@ -10,7 +10,7 @@ import {
 export default async function LoginPage() {
   const signinWithGoogleAction = async () => {
     "use server";
-    await signIn("google", { redirectTo: "/dashboard" });
+    await signIn("google", { redirectTo: "/extensions" });
   };
   return (
     <div className="flex h-screen items-center justify-center ">
@@ -20,7 +20,7 @@ export default async function LoginPage() {
         </CardHeader>
         <CardFooter>
           <form action={signinWithGoogleAction} className="w-full">
-            <Button type="submit" variant="outline" className="w-full">
+            <Button type="submit" variant="outline" className="w-full cursor-pointer">
               Signin With Google
             </Button>
           </form>
