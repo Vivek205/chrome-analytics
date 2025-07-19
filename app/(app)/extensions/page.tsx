@@ -61,7 +61,7 @@ export default async function Extensions(props: {
         </Link>
       </div>
       <div className="mt-4">
-        <ul className="flex gap-4 flex-wrap">
+        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {extensionsWithImages.map((extension) => (
             <Link href={`/extensions/${extension.id}`} key={extension.id}>
               <ExtensionCard

@@ -1,17 +1,14 @@
 "use client";
 import { Button } from "../ui/button";
-import { SquareArrowOutUpRight, Trash, TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import {
   Card,
   CardAction,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { buttonVariants } from "../ui/button";
 import Image from "next/image";
-import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import type { RemoveUserExtensionAction } from "@/app/(app)/extensions/actions";
 import { useRouter } from "next/navigation";
@@ -47,8 +44,8 @@ export const ExtensionCard = ({
   }, [state.success, router]);
 
   return (
-    <Card role="listitem" className="w-64">
-      <CardHeader className="h-8 ">
+    <Card role="listitem">
+      <CardHeader className="h-8">
         <CardTitle>{extension.name}</CardTitle>
         <CardAction>
           <form
@@ -68,7 +65,7 @@ export const ExtensionCard = ({
           </form>
         </CardAction>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex justify-center">
         <Image
           src={extension.ogImage || ""}
           alt="OG"
