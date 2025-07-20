@@ -15,15 +15,22 @@ export const ExtensionToast = ({
   useEffect(() => {
     console.log("success", success);
     if (success) {
-      toast.success(`Extension ${newExtensionName} added successfully`);
+      toast.success(`Extension ${newExtensionName} added successfully`, {
+        action: {
+          label: "ok",
+          onClick: console.log,
+        },
+      });
 
       const newSearchParams = new URLSearchParams(searchParams);
       newSearchParams.delete("success");
       newSearchParams.delete("id");
-      
+
       // Use window.history.replaceState for shallow URL update
-      const newUrl = `${window.location.pathname}${newSearchParams.toString() ? `?${newSearchParams.toString()}` : ''}`;
-      window.history.replaceState({}, '', newUrl);
+      const newUrl = `${window.location.pathname}${
+        newSearchParams.toString() ? `?${newSearchParams.toString()}` : ""
+      }`;
+      window.history.replaceState({}, "", newUrl);
     }
   }, [success, newExtensionName, searchParams]);
 
