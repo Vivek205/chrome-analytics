@@ -26,7 +26,7 @@ export const AppHeader = ({ user }: AppHeaderProps) => {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="w-full sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50">
       {/* Gradient background with subtle animation */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-80" />
       
