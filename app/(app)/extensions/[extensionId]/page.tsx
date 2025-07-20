@@ -62,30 +62,33 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
       </div>
       <ExtensionDetailsHero extensionDetails={extensionDetails} />
 
-      <div className="flex">
-        <BasicInfo
-          latestMetrics={latestMetrics}
-          extensionDetails={extensionDetails}
-        />
-      </div>
-
       <div className="flex flex-wrap gap-4">
-        <LineChart
-          title="Ratings"
-          description="Monthly Ratings Analysis"
-          data={ratingsChartData}
-          chartConfig={{
-            desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
-          }}
-        />
-        <LineChart
-          title="Active Users"
-          description="Analysis of Active Users Over Time"
-          data={activeUsersChartData}
-          chartConfig={{
-            desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
-          }}
-        />
+        <div className="flex-1 min-w-[300px]">
+          <BasicInfo
+            latestMetrics={latestMetrics}
+            extensionDetails={extensionDetails}
+          />
+        </div>
+        <div className="flex-1 min-w-[400px]">
+          <LineChart
+            title="Ratings"
+            description="Monthly Ratings Analysis"
+            data={ratingsChartData}
+            chartConfig={{
+              desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
+            }}
+          />
+        </div>
+        <div className="flex-1 min-w-[400px]">
+          <LineChart
+            title="Active Users"
+            description="Analysis of Active Users Over Time"
+            data={activeUsersChartData}
+            chartConfig={{
+              desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
+            }}
+          />
+        </div>
       </div>
     </div>
   );
