@@ -3,6 +3,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AppHeader } from "@/components/AppHeader";
 import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "ChromeExt Dashboard",
@@ -18,11 +19,13 @@ export default async function AppLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <div className="w-full">
-        <AppHeader user={session?.user} />
-        <main className="p-4">{children}</main>
-      </div>
+      <SessionProvider>
+        <AppSidebar />
+        <div className="w-full">
+          <AppHeader user={session?.user} />
+          <main className="p-4">{children}</main>
+        </div>
+      </SessionProvider>
     </SidebarProvider>
   );
 }

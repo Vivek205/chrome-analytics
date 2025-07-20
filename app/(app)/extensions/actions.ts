@@ -1,7 +1,10 @@
 // app/extensions/actions.ts
 "use server";
 
-import { addUserExtension } from "@/services/userExtensions.service";
+import {
+  addUserExtension,
+  removeUserExtension,
+} from "@/services/userExtensions.service";
 import { auth } from "@/auth";
 
 export type AddExtensionActionState = {
@@ -38,22 +41,14 @@ export async function addExtensionAction(
   }
 }
 
-export type RemoveUserExtensionActionState = {
-  success: boolean;
-  error?: string;
-};
-
 export type RemoveUserExtensionAction = (
-  prevState: RemoveUserExtensionActionState,
-  formData: FormData
-) => Promise<RemoveUserExtensionActionState>;
+  userId: string,
+  extensionId: string
+) => Promise<void>;
 
 export async function removeUserExtensionAction(
-  prevState: RemoveUserExtensionActionState,
-  // TODO: pass extensionId instead of formData
-  formData: FormData
-): Promise<RemoveUserExtensionActionState> {
-  console.log("removeUserExtensionAction");
-  const id = formData.get("id");
-  return { success: true }; 
+  userId: string,
+  extensionId: string
+): Promise<void> {
+  await removeUserExtension(userId, extensionId);
 }

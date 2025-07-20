@@ -134,7 +134,7 @@ export const removeUserExtension = async (
   userId: string,
   extensionId: string
 ) => {
-  // Remove the user_extension entry from the database
+  console.log("Removing extension", userId, extensionId);
   await dbClient.user_extensions.delete({
     where: {
       userId_extensionId: {

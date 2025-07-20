@@ -1,4 +1,4 @@
-import { BadgeInfo, CircleGauge, Cog, LayoutDashboard } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 export const menuItems = [
   { title: "Extensions", icon: LayoutDashboard, href: "/extensions" },
