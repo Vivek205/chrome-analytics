@@ -87,7 +87,7 @@ function RatingSection({ rating }: { rating: number }) {
 }
 
 // Version Section Component
-function VersionSection({ version = "1.30.2" }: { version?: string }) {
+function VersionSection({ version }: { version?: string }) {
   return (
     <div className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 transition-colors duration-200">
       <div className="flex items-center gap-3">
@@ -149,7 +149,8 @@ export function BasicInfo({
 
         <UsersSection activeUsers={latestMetrics?.activeUsers} />
         <RatingSection rating={latestMetrics?.ratingsValue} />
-        <VersionSection />
+        {/* TODO: Get the version from the extension details */}
+        <VersionSection version="1.30.2" />
         <URLSection url={extensionDetails?.url} />
       </CardContent>
     </Card>
