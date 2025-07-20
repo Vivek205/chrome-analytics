@@ -5,10 +5,10 @@ export function AddExtensionHero() {
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-xl opacity-60"></div>
 
       {/* Content */}
-      <div className="relative flex items-center justify-between p-6">
-        <div className="flex items-center space-x-3">
+      <div className="relative flex items-start p-4 sm:p-6">
+        <div className="flex items-start space-x-3">
           {/* Icon */}
-          <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg shadow-lg">
+          <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg shadow-lg flex-shrink-0">
             <svg
               className="w-5 h-5 text-white"
               fill="none"
@@ -25,17 +25,17 @@ export function AddExtensionHero() {
           </div>
 
           {/* Title */}
-          <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
               Add New Extension
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Paste the Chrome Web Store URL of the extension you&apos;d like to monitor
               for updates and details.
             </p>
             
             {/* Features */}
-            <div className="flex flex-wrap gap-3 mt-2">
+            <div className="flex flex-wrap gap-2 sm:gap-3 mt-2">
               <div className="flex items-center gap-1.5 text-xs text-gray-500">
                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
                 <span>Auto-fetch data</span>
