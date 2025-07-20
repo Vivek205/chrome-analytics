@@ -7,6 +7,7 @@ import { getExtensionMetrics } from "@/services/extensionMetrics.service";
 import { getExtensionDetails } from "@/services/extensions.service";
 import { checkIfUserHasAddedExtension } from "@/services/userExtensions.service";
 import { BasicInfo } from "./BasicInfo";
+import { ExtensionDetailsHero } from "./ExtensionDetailsHero";
 
 type ExtensionPageProps = {
   params: Promise<{ extensionId: string }>;
@@ -50,7 +51,7 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
   // TODO: The date is not displayed correctly in the chart, fix it later
 
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-4">
       <div className="flex gap-2 items-center">
         <Breadcrumbs
           items={[
@@ -59,6 +60,11 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
           ]}
         />
       </div>
+      <ExtensionDetailsHero
+        extensionDetails={extensionDetails}
+        latestMetrics={latestMetrics}
+      />
+      
       <div className="flex">
         <BasicInfo
           latestMetrics={latestMetrics}
@@ -66,7 +72,7 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
         />
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-4">
         <LineChart
           title="Ratings"
           description="Monthly Ratings Analysis"
