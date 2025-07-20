@@ -1,23 +1,18 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  SquareArrowOutUpRight, 
-  Users, 
-  Star, 
-  Code, 
+import {
+  SquareArrowOutUpRight,
+  Users,
+  Star,
+  Code,
   Globe,
   TrendingUp,
-  Activity
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type BasicInfoProps = {
-  latestMetrics: any;
-  extensionDetails: any;
-};
-
 // Users Section Component
-function UsersSection({ activeUsers }: { activeUsers: number }) {
+function UsersSection({ activeUsers }: { activeUsers?: number | null }) {
   const getUsersBadgeVariant = (users: number) => {
     if (users >= 1000000) return "default";
     if (users >= 100000) return "secondary";
@@ -31,13 +26,18 @@ function UsersSection({ activeUsers }: { activeUsers: number }) {
         <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
           <Users className="h-4 w-4 text-green-600 dark:text-green-400" />
         </div>
-        <span className="font-medium text-slate-700 dark:text-slate-300">Users</span>
+        <span className="font-medium text-slate-700 dark:text-slate-300">
+          Users
+        </span>
       </div>
       <div className="flex items-center gap-2">
         <span className="text-lg font-bold text-slate-900 dark:text-slate-100">
           {activeUsers?.toLocaleString() || "0"}
         </span>
-        <Badge variant={getUsersBadgeVariant(activeUsers || 0)} className="text-xs">
+        <Badge
+          variant={getUsersBadgeVariant(activeUsers || 0)}
+          className="text-xs"
+        >
           <TrendingUp className="h-3 w-3 mr-1" />
           Active
         </Badge>
@@ -47,7 +47,7 @@ function UsersSection({ activeUsers }: { activeUsers: number }) {
 }
 
 // Rating Section Component
-function RatingSection({ rating }: { rating: number }) {
+function RatingSection({ rating }: { rating?: number | null }) {
   const getRatingColor = (rating: number) => {
     if (rating >= 4.5) return "text-green-500";
     if (rating >= 4.0) return "text-yellow-500";
@@ -61,7 +61,9 @@ function RatingSection({ rating }: { rating: number }) {
         <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
           <Star className="h-4 w-4 text-yellow-600 dark:text-yellow-400 fill-current" />
         </div>
-        <span className="font-medium text-slate-700 dark:text-slate-300">Rating</span>
+        <span className="font-medium text-slate-700 dark:text-slate-300">
+          Rating
+        </span>
       </div>
       <div className="flex items-center gap-2">
         <span className={cn("text-lg font-bold", getRatingColor(rating || 0))}>
@@ -94,7 +96,9 @@ function VersionSection({ version }: { version?: string }) {
         <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
           <Code className="h-4 w-4 text-purple-600 dark:text-purple-400" />
         </div>
-        <span className="font-medium text-slate-700 dark:text-slate-300">Version</span>
+        <span className="font-medium text-slate-700 dark:text-slate-300">
+          Version
+        </span>
       </div>
       <Badge variant="outline" className="font-mono text-xs">
         {version}
@@ -111,7 +115,9 @@ function URLSection({ url }: { url?: string }) {
         <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
           <Globe className="h-4 w-4 text-blue-600 dark:text-blue-400" />
         </div>
-        <span className="font-medium text-slate-700 dark:text-slate-300">URL</span>
+        <span className="font-medium text-slate-700 dark:text-slate-300">
+          URL
+        </span>
       </div>
       <a
         href={url}
@@ -120,21 +126,27 @@ function URLSection({ url }: { url?: string }) {
         className="group/link flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200"
       >
         <span className="text-xs max-w-24 truncate font-mono">
-          {url?.replace(/^https?:\/\//, '') || 'N/A'}
+          {url?.replace(/^https?:\/\//, "") || "N/A"}
         </span>
-        <SquareArrowOutUpRight 
-          size={12} 
-          className="group-hover/link:scale-110 group-hover/link:translate-x-0.5 transition-transform duration-200" 
+        <SquareArrowOutUpRight
+          size={12}
+          className="group-hover/link:scale-110 group-hover/link:translate-x-0.5 transition-transform duration-200"
         />
       </a>
     </div>
   );
 }
 
-export function BasicInfo({
-  latestMetrics,
-  extensionDetails,
-}: BasicInfoProps) {
+type BasicInfoProps = {
+  latestMetrics?: {
+    activeUsers: number | null;
+    ratingsValue: number | null;
+  } | null;
+  extensionDetails: {
+    url: string;
+  } | null;
+};
+export function BasicInfo({ latestMetrics, extensionDetails }: BasicInfoProps) {
   return (
     <Card className="md:w-auto min-w-2xs bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
       <CardContent className="space-y-3">

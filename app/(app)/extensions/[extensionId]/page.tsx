@@ -60,11 +60,8 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
           ]}
         />
       </div>
-      <ExtensionDetailsHero
-        extensionDetails={extensionDetails}
-        latestMetrics={latestMetrics}
-      />
-      
+      <ExtensionDetailsHero extensionDetails={extensionDetails} />
+
       <div className="flex">
         <BasicInfo
           latestMetrics={latestMetrics}

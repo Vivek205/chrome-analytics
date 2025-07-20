@@ -87,7 +87,7 @@ export const AddExtensionForm = () => {
         <ol className="text-sm text-gray-600 space-y-2 list-decimal list-inside">
           <li>Go to the Chrome Web Store</li>
           <li>Find the extension you want to track</li>
-          <li>Copy the URL from your browser's address bar</li>
+          <li>Copy the URL from your browser&apos;s address bar</li>
           <li>Paste it in the field above</li>
         </ol>
       </div>

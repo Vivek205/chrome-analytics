@@ -1,18 +1,12 @@
-import { extension_metrics } from "@prisma/client";
-
 interface ExtensionDetailsHeroProps {
   extensionDetails: {
     id: string;
     name: string;
     url: string;
   } | null;
-  latestMetrics: extension_metrics | undefined;
 }
 
-export function ExtensionDetailsHero({
-  extensionDetails,
-  latestMetrics,
-}: ExtensionDetailsHeroProps) {
+export function ExtensionDetailsHero({ extensionDetails }: ExtensionDetailsHeroProps) {
   return (
     <div className="relative">
       {/* Background gradient */}
@@ -44,7 +38,7 @@ export function ExtensionDetailsHero({
               {extensionDetails?.name || "Extension Details"}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              Monitor your extension's performance and metrics
+              Monitor your extension&apos;s performance and metrics
             </p>
           </div>
         </div>
