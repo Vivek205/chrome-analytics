@@ -148,7 +148,7 @@ type BasicInfoProps = {
 };
 export function BasicInfo({ latestMetrics, extensionDetails }: BasicInfoProps) {
   return (
-    <Card className="md:w-auto min-w-2xs bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
+    <Card className="md:w-auto min-w-2xs bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-0 shadow-lg hover:shadow-xl transition-all duration-300 group h-full">
       <CardContent className="space-y-3">
         <div className="flex items-center gap-3 pb-2">
           <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:scale-110 transition-transform duration-300">
