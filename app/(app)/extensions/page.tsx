@@ -30,9 +30,14 @@ export default async function Extensions(props: {
   if (!extensions.length) {
     return (
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Your Extensions
-        </h1>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Your Extensions
+          </h1>
+          <Link href="/extensions/new">
+            <Button className="cursor-pointer">Add New Extension</Button>
+          </Link>
+        </div>
         <p className="text-muted-foreground">
           No extensions found. Please add some.
         </p>

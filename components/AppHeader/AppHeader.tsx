@@ -27,7 +27,7 @@ export const AppHeader = ({ user }: AppHeaderProps) => {
     <div className="w-full">
       <nav className="flex justify-between p-2">
         <div className="flex items-center">
-          <SidebarTrigger />
+          <SidebarTrigger className="cursor-pointer" />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
