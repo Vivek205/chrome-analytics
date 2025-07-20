@@ -4,19 +4,34 @@ import { dbClient } from "./database/client";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token, user }) {
+      let userDbData;
       if (token && token.email) {
-        const userDbData = await dbClient.users.findUnique({
+        userDbData = await dbClient.users.upsert({
           where: { email: token.email },
+          update: {
+            name: token.name,
+            email: token.email,
+            image: token.picture,
+          },
+          create: {
+            name: token.name,
+            email: token.email,
+            image: token.picture,
+          },
         });
-
-        if (userDbData) {
-          const { id } = userDbData;
-          session.user.id = id;
-        }
       }
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: userDbData?.id,
+        },
+      };
     },
   },
 });

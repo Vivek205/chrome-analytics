@@ -26,7 +26,7 @@ export async function addExtensionAction(
       typeof extensionUrl !== "string" ||
       !session?.user?.id
     ) {
-      console.error("Invalid data");
+      console.error("Invalid data", extensionUrl, session?.user?.id);
       return { success: false, error: "Invalid data" };
     }
 
