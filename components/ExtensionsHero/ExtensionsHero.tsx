@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-interface ExtensionsHeaderProps {
+interface ExtensionsHeroProps {
   title?: string;
   showAddButton?: boolean;
 }
 
-export function ExtensionsHeader({
+export function ExtensionsHero({
   title = "Your Extensions",
   showAddButton = true,
-}: ExtensionsHeaderProps) {
+}: ExtensionsHeroProps) {
   return (
     <div className="relative mb-6">
       {/* Background gradient */}
@@ -70,4 +70,4 @@ export function ExtensionsHeader({
       </div>
     </div>
   );
-}
+} 

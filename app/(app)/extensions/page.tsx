@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { ExtensionCard } from "@/components/ExtensionCard";
 import { ExtensionToast } from "@/components/ExtensionToast";
-import { ExtensionsHeader } from "@/components/ExtensionsHeader";
+import { ExtensionsHero } from "@/components/ExtensionsHero";
 import { fetchOgImage } from "@/lib/fetchOgImage";
 import { getExtensionDetails } from "@/services/extensions.service";
 import { getUserExtensions } from "@/services/userExtensions.service";
@@ -30,7 +30,7 @@ export default async function Extensions(props: {
   if (!extensions.length) {
     return (
       <div>
-        <ExtensionsHeader />
+        <ExtensionsHero />
         <p className="text-muted-foreground">
           No extensions found. Please add some.
         </p>
@@ -50,7 +50,7 @@ export default async function Extensions(props: {
 
   return (
     <div>
-      <ExtensionsHeader />
+      <ExtensionsHero />
       <div className="mt-4">
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {extensionsWithImages.map((extension) => (

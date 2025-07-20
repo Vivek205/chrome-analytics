@@ -1,0 +1,1 @@
+export { ExtensionsHero } from './ExtensionsHero'; 
