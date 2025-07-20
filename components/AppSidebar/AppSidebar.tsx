@@ -9,14 +9,14 @@ import {
 import Link from "next/link";
 import { menuItems } from "./constants";
 import { Separator } from "../ui/separator";
-import { Sparkles } from "lucide-react";
+import { ChromeLyticsLogo } from "../ChromeLyticsLogo";
 
 export const AppSidebar = () => {
   return (
     <Sidebar>
       <SidebarHeader className="font-bold leading-9 p-4 flex items-center gap-2 relative h-16">
         {/* Gradient background for header only */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-r  from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-80" />
         
         {/* Animated background pattern for header */}
         <div className="absolute inset-0 opacity-5">
@@ -24,11 +24,8 @@ export const AppSidebar = () => {
         </div>
         
         {/* Header content */}
-        <div className="relative z-10 flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-yellow-500 animate-pulse" />
-          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            ChromeLytics
-          </span>
+        <div className="relative z-10 flex items-center justify-center w-full">
+          <ChromeLyticsLogo className="h-9 w-auto" />
         </div>
       </SidebarHeader>
       
