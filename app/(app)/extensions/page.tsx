@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { ExtensionCard } from "@/components/ExtensionCard";
 import { ExtensionToast } from "@/components/ExtensionToast";
-import { Button } from "@/components/ui/button";
+import { ExtensionsHeader } from "@/components/ExtensionsHeader";
 import { fetchOgImage } from "@/lib/fetchOgImage";
 import { getExtensionDetails } from "@/services/extensions.service";
 import { getUserExtensions } from "@/services/userExtensions.service";
@@ -30,14 +30,7 @@ export default async function Extensions(props: {
   if (!extensions.length) {
     return (
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Your Extensions
-          </h1>
-          <Link href="/extensions/new">
-            <Button className="cursor-pointer">Add New Extension</Button>
-          </Link>
-        </div>
+        <ExtensionsHeader />
         <p className="text-muted-foreground">
           No extensions found. Please add some.
         </p>
@@ -57,14 +50,7 @@ export default async function Extensions(props: {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Your Extensions
-        </h1>
-        <Link href="/extensions/new">
-          <Button className="cursor-pointer">Add New Extension</Button>
-        </Link>
-      </div>
+      <ExtensionsHeader />
       <div className="mt-4">
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {extensionsWithImages.map((extension) => (
