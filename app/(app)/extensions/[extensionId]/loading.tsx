@@ -1,3 +1,4 @@
+import { BreadcrumbsSkeleton } from "@/components/Breadcrumbs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -45,11 +46,7 @@ export const LineChartSkeleton = () => {
 export default function Loading() {
   return (
     <div>
-      <div className="flex gap-2">
-        <Skeleton className="h-5 w-20" />
-        <Skeleton className="h-5 w-3" />
-        <Skeleton className="h-5 w-2xs" />
-      </div>
+      <BreadcrumbsSkeleton />
       <div className="mt-4 flex">
         <InfoCardSkeleton />
       </div>
