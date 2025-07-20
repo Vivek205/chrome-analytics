@@ -63,13 +63,13 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
       <ExtensionDetailsHero extensionDetails={extensionDetails} />
 
       <div className="flex flex-wrap gap-4">
-        <div className="flex-1 min-w-[300px]">
+        <div className="flex-1 min-w-[280px] max-w-[400px]">
           <BasicInfo
             latestMetrics={latestMetrics}
             extensionDetails={extensionDetails}
           />
         </div>
-        <div className="flex-1 min-w-[400px]">
+        <div className="flex-1 min-w-[280px] max-w-[500px]">
           <LineChart
             title="Ratings"
             description="Monthly Ratings Analysis"
@@ -79,7 +79,7 @@ export default async function ExtensionPage({ params }: ExtensionPageProps) {
             }}
           />
         </div>
-        <div className="flex-1 min-w-[400px]">
+        <div className="flex-1 min-w-[280px] max-w-[500px]">
           <LineChart
             title="Active Users"
             description="Analysis of Active Users Over Time"

@@ -63,12 +63,14 @@ export const LineChart: FC<LineChartProps> = ({
         {/* Chart container with enhanced styling */}
         <ChartContainer 
           config={chartConfig} 
-          className="min-h-[200px] w-full relative"
+          className="min-h-[200px] w-full relative overflow-hidden"
         >
           <LineChartRe 
             data={data.values} 
-            margin={{ left: 0, right: 12, top: 5 }}
+            margin={{ left: 0, right: 8, top: 5, bottom: 5 }}
             className="group/chart"
+            width={undefined}
+            height={200}
           >
             <CartesianGrid 
               vertical={false} 
@@ -79,12 +81,12 @@ export const LineChart: FC<LineChartProps> = ({
             <XAxis
               dataKey={data.xAxisDataKey}
               axisLine={false}
-              padding={{ left: 20 }}
+              padding={{ left: 10, right: 10 }}
               tickLine={false}
-              tickMargin={8}
+              tickMargin={6}
               tickFormatter={(value) => value.slice(0, 3)}
               tick={{ 
-                fontSize: 12, 
+                fontSize: 11, 
                 fill: "hsl(var(--muted-foreground))",
                 fontWeight: 500 
               }}
@@ -95,14 +97,14 @@ export const LineChart: FC<LineChartProps> = ({
             />
             <YAxis
               axisLine={false}
-              width={40}
+              width={35}
               domain={[
                 data.yAxisMinValue ?? "dataMin",
                 data.yAxisMaxValue ?? "auto",
               ]}
               max={data.yAxisMaxValue}
               tick={{ 
-                fontSize: 12, 
+                fontSize: 11, 
                 fill: "hsl(var(--muted-foreground))",
                 fontWeight: 500 
               }}
