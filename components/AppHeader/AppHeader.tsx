@@ -3,7 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "../ui/separator";
@@ -12,8 +11,7 @@ import { Button } from "../ui/button";
 import { signOut } from "@/auth";
 import { User } from "next-auth";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { UserCircleIcon, Settings, LogOut, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { UserCircleIcon, LogOut, Sparkles } from "lucide-react";
 
 type AppHeaderProps = {
   user?: User;
@@ -92,18 +90,8 @@ export const AppHeader = ({ user }: AppHeaderProps) => {
                   {user?.email || 'user@example.com'}
                 </p>
               </div>
-
-              <DropdownMenuSeparator className="bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
               
-              {/* Menu items with enhanced styling */}
-              <DropdownMenuItem className="group cursor-pointer hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 transition-all duration-200">
-                <Link href="/settings" className="w-full flex items-center gap-3 py-2">
-                  <Settings className="w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-colors duration-200" />
-                  <span className="font-medium">Settings</span>
-                </Link>
-              </DropdownMenuItem>
-              
-              <DropdownMenuItem asChild className="group cursor-pointer hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 transition-all duration-200">
+              <DropdownMenuItem className="group cursor-pointer hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 transition-all duration-200">
                 <form action={signoutAction} className="w-full">
                   <button 
                     type="submit" 
